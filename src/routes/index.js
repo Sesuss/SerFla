@@ -50,14 +50,14 @@ router.get("/serviflash/notas:id/", isLoggedIn, async (req, res) =>{
 
         if (notass[0].NotaCerrada == 1) {
             
-                let notas = await pool.query("SELECT * FROM tbldetallenota WHERE IdNotas = ? order by `Descripcion` asc",[notass[0].IdNotas])
+                let notas = await pool.query("SELECT * FROM tbldetallenota WHERE IdNotas = ? ORDER BY `ID` ASC",[notass[0].IdNotas])
                 let aa =5050
                 res.render("layouts/solo_notas",{notas, id, aa,orden})
                 return
             
         } else{
             let IdCliente=notass[0].IdCliente
-            let notas = await pool.query("SELECT * FROM tbldetallenota WHERE IdNotas = ? order by `Descripcion` asc",[notass[0].IdNotas])
+            let notas = await pool.query("SELECT * FROM tbldetallenota WHERE IdNotas = ? ORDER BY `ID` ASC",[notass[0].IdNotas])
             if (notas[0] == undefined) {
                 let IdN= notass[0].IdNotas
                 res.render("layouts/ver_notas",{notas, id, orden, IdN, IdCliente})
