@@ -5,7 +5,6 @@ const pdfc =require("../routes/pdf")
 var moment = require('moment');
 const {isLoggedIn, isAdmin} = require("../lib/auth")
 
-
 const log = console.log
 
 //Principal
@@ -184,6 +183,8 @@ router.post("/editar_registro", isLoggedIn, async (req, res) => {
         IdTecnico=10
     }else if (IdTecnico=="ALBERTO CARLOS SERRANO") {
         IdTecnico=11
+    }else if (IdTecnico=="JOSÉ LUIS ZAMORA CRUZ") {
+        IdTecnico=12
     }
     if (FechaRealizacion=="") {
         FechaRealizacion=null
@@ -444,6 +445,8 @@ router.get("/serviflash/ver_cliente:id/", isLoggedIn, async (req, res) => {
             orden[index].IdTecnico="ESTEBAN PEREZ CRUZ"
         }else if (orden[index].IdTecnico==11) {
             orden[index].IdTecnico="ALBERTO CARLOS SERRANO"
+        }else if (orden[index].IdTecnico==12) {
+            orden[index].IdTecnico="JOSÉ LUIS ZAMORA CRUZ"
         }else{orden[index].IdTecnico=""}
     }
     res.render("layouts/cliente_completo", { equipo, cliente, orden ,id })
@@ -559,9 +562,11 @@ router.post("/serviflash/ver_reporte", isLoggedIn, isAdmin, async (req, res) => 
      let tec4=0,
      tec8=0,
      tec11=0,
+     tec12=0,
      tec4n=0,
      tec8n=0,
      tec11n=0,
+     tec12n=0,
      a=0,
      total=0,
      format="yyyy-MM-DD"
@@ -584,6 +589,10 @@ router.post("/serviflash/ver_reporte", isLoggedIn, isAdmin, async (req, res) => 
         }else if (ordenes[index].IdTecnico==11) {
             tec11n+=+1
             tec11+=ordenes[index].CostoServicio
+
+        }else if (ordenes[index].IdTecnico==12) {
+            tec12n+=+1
+            tec12+=ordenes[index].CostoServicio
         }
 
         }
@@ -592,7 +601,8 @@ router.post("/serviflash/ver_reporte", isLoggedIn, isAdmin, async (req, res) => 
         tec4 = Intl.NumberFormat('en-EU', {style: 'currency',currency: 'MXN', minimumFractionDigits: 2}).format(tec4);
         tec8 = Intl.NumberFormat('en-EU', {style: 'currency',currency: 'MXN', minimumFractionDigits: 2}).format(tec8);
         tec11 = Intl.NumberFormat('en-EU', {style: 'currency',currency: 'MXN', minimumFractionDigits: 2}).format(tec11);
-    res.render("layouts/reporte_tecnico",{total,tec4,tec8,tec11,tec4n,tec8n,tec11n})
+        tec12 = Intl.NumberFormat('en-EU', {style: 'currency',currency: 'MXN', minimumFractionDigits: 2}).format(tec12);
+    res.render("layouts/reporte_tecnico",{total,tec4,tec8,tec11,tec12,tec4n,tec8n,tec11n,tec12n})
 })
 
 
