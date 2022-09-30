@@ -124,7 +124,7 @@ router.post("/agregar_registro", isLoggedIn, async (req, res) => {
     }
     const newarticulo = { IdOrdenServicio, IdCliente, IdEquipo, Falla, FechaSolicitud, FechaVisita, Realizado, FechaRealizacion, Observaciones, Presupuesto, CostoServicio, Hora, IdTecnico, MedioDeInformacion }
     await pool.query("INSERT INTO tblordenservicio SET ?", [newarticulo])
-    res.redirect("/serviflash/ver_cliente"+IdCliente+"/")
+    res.redirect('http://zonadigitalweb.com:3000/new'+IdOrdenServicio+'/55765412')
 
 })
 
@@ -185,7 +185,10 @@ router.post("/editar_registro", isLoggedIn, async (req, res) => {
         IdTecnico=11
     }else if (IdTecnico=="JOSÉ LUIS ZAMORA CRUZ") {
         IdTecnico=12
+    }else if (IdTecnico=="LUIS ALBERTO MEDINA GALLEGOS") {
+        IdTecnico=13
     }
+
     if (FechaRealizacion=="") {
         FechaRealizacion=null
     }
@@ -447,6 +450,8 @@ router.get("/serviflash/ver_cliente:id/", isLoggedIn, async (req, res) => {
             orden[index].IdTecnico="ALBERTO CARLOS SERRANO"
         }else if (orden[index].IdTecnico==12) {
             orden[index].IdTecnico="JOSÉ LUIS ZAMORA CRUZ"
+        }else if(orden[index].IdTecnico==13){
+            orden[index].IdTecnico="LUIS ALBERTO MEDINA GALLEGOS"
         }else{orden[index].IdTecnico=""}
     }
     res.render("layouts/cliente_completo", { equipo, cliente, orden ,id })
